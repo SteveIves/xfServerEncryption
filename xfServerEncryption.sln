@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "xfServerEncryption", "xfServerEncryption.synproj", "{C1FA8406-06F3-4631-8E8A-44DD7448AC07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "File Descriptions", "File Descriptions", "{2D21A71D-3DCF-461E-9631-F3D5E0C2B7A5}"
+	ProjectSection(SolutionItems) = preProject
+		DATA\DEPARTMENT.XDL = DATA\DEPARTMENT.XDL
+		DATA\EMPLOYEE.XDL = DATA\EMPLOYEE.XDL
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RootCA", "RootCA", "{0F2601FF-3851-4EEB-8E6D-CD8418AF0B5E}"
+	ProjectSection(SolutionItems) = preProject
+		CERT\caconfig.cnf = CERT\caconfig.cnf
+		CERT\CreateCA.bat = CERT\CreateCA.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certificate", "Certificate", "{D9B634F1-1C26-4C51-B9FC-208C2931F3CD}"
+	ProjectSection(SolutionItems) = preProject
+		CERT\certconfig.cnf = CERT\certconfig.cnf
+		CERT\CreateCertificate.bat = CERT\CreateCertificate.bat
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Debug|x64.ActiveCfg = Debug|x64
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Debug|x64.Build.0 = Debug|x64
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Debug|x86.ActiveCfg = Debug|x86
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Debug|x86.Build.0 = Debug|x86
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Release|x64.ActiveCfg = Release|x64
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Release|x64.Build.0 = Release|x64
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Release|x86.ActiveCfg = Release|x86
+		{C1FA8406-06F3-4631-8E8A-44DD7448AC07}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E364547-75CD-4FAD-A1A6-0B6A545ADBC2}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,112 @@
+
+;;; <summary>
+;;; The main entry point for the application.
+;;; </summary>
+main xfServerEncryption
+	record
+		chtt,	i4
+		chan,	i4
+	endrecord
+proc
+
+	open(chtt=0,i,"tt:")
+	xcall flags(7004020,1)
+
+	writes(chtt,"Opening DEPARTMENT.ISM")
+
+	;;This file does NOT require an encrypted channel
+
+	open(chan=0,U:I,"DATA:DEPARTMENT.ISM")
+	writes(chtt,"  Channel opened")
+	xcall ReportChannelInfo(chtt,chan)
+	close chan
+	writes(chtt,"  Channel closed")
+
+	;;But we can still use an encrypted channel if available
+
+	writes(chtt,"")
+	writes(chtt,"  Re-opening channel with optional encryption")
+
+	try
+	begin
+		open(chan=0,U:I,"DATA:DEPARTMENT.ISM",OPTIONS:"/encrypt")
+		writes(chtt,"  Channel opened")
+		xcall ReportChannelInfo(chtt,chan)
+	end
+	catch (e, @SynServerException)
+	begin
+		writes(chtt,"  Failed to open channel - encryption requested but unavailable!")
+	end
+	finally
+	begin
+		if (chan && %chopen(chan))
+		begin
+			close chan
+			writes(chtt,"  Channel closed")
+		end
+	end
+	endtry
+
+	writes(chtt,"-------------------------------------------------------------------------------")
+	writes(chtt,"Opening EMPLOYEE.ISM")
+
+	;;This file DOES require an encrypted channel.
+	;;The open will FAIL if encryprion is not available.
+
+	try
+	begin
+		open(chan=0,U:I,"DATA:EMPLOYEE.ISM")
+		writes(chtt,"  Channel opened")
+		xcall ReportChannelInfo(chtt,chan)
+	end
+	catch (e, @SynServerException)
+	begin
+		writes(chtt,"  Failed to open channel - encryption required but unavailable!")
+	end
+	finally
+	begin
+		if (chan && %chopen(chan))
+		begin
+			close chan
+			writes(chtt,"  Channel closed")
+		end
+	end
+	endtry
+
+
+	display(chtt,13,10,"Press a key: ")
+	accept(chtt,chan)
+
+	stop
+
+subroutine ReportChannelInfo
+	required in aTerminalChannel, n
+	required in aChannel, n
+	endparams
+	record
+		encrypted,	d1
+		info,		a128
+		name,		a80
+		ext,		a10
+	endrecord
+proc
+
+	if (%isinfo(aChannel,"NETCRYPT")) then
+		writes(aTerminalChannel,"  File REQUIRES encryption")
+	else
+		writes(aTerminalChannel,"  File does NOT require encryption")
+
+	xcall getfa(aChannel,"SLE",encrypted)
+	if (encrypted) then
+	begin
+		writes(aTerminalChannel,"  Channel IS encrypted")
+		xcall getfa(aChannel,"SLC",info)
+		writes(aTerminalChannel,"  Encryption data:")
+		writes(aTerminalChannel,"  " + %atrim(info(1:76)))
+	end
+	else
+		writes(aTerminalChannel,"  Channel is NOT encrypted")
+
+	xreturn
+
+endsubroutine
